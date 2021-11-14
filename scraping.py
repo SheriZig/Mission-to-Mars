@@ -12,11 +12,12 @@ import datetime as dt
 # executable_path = {'executable_path': ChromeDriverManager().install()}
 # browser = Browser('chrome', **executable_path, headless=False)
 
+
 # Connect to Mongo and establish communication between our code and the database
 def scrape_all():
     # Initate headless driver (user will not see the scraping action) for deployment
     executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=False)
+    browser = Browser('chrome', **executable_path, headless=True)
 
     news_title, news_paragraph = mars_news(browser)
 # Run all scraping functions and store results in dictionary
@@ -25,9 +26,11 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "hemispheres" : hemisphere_images(browser)
     }
-    
+
+   
     # Stop webdriver and return data
     browser.quit()
     return data
@@ -88,7 +91,6 @@ def featured_image(browser):
     return img_url
 
 
-    
 def mars_facts():
 
     # Add Try/Except error handling
@@ -108,6 +110,47 @@ def mars_facts():
     # Convert dataframe to html
     return df.to_html()
 
+def hemisphere_images(browser):
+    url = 'https://marshemispheres.com/'
+
+    browser.visit(url)
+
+
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    url = 'https://marshemispheres.com/'
+
+    browser.visit(url)
+
+    html = browser.html
+
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    for image in range (0, 4):
+        browser.visit(url)
+        home_page = browser.find_by_tag('h3')[image]
+        home_page.click()
+        html = browser.html
+        img_soup = soup(html, 'html.parser')
+
+        image_class = img_soup.find('div', class_='downloads')
+        image_url = image_class.find('a').get('href')
+        image_full_url = f'https://marshemispheres.com/{image_url}'
+        title = img_soup.h2.text
+        hemispheres = {'image_url': image_full_url, 'title': title}
+        
+        #if hemispheres not in hemisphere_image_urls:
+        hemisphere_image_urls.append(hemispheres)
+
+
+    # 4. Print the list that holds the dictionary of each image url and title.
+    return hemisphere_image_urls
+
+   
 # Tells flask that the code is complete and ready for action
 if __name__ == "__main__":
     # If running as script, print scraped data
