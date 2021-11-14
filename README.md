@@ -28,4 +28,5 @@ The second site contains the following elements:
 - Mars Facts table with modification to the font size
 - Four thumbnail images of the four hemisphers horizontally across the page
 
+![image](https://user-images.githubusercontent.com/88912539/141663393-f4dd9716-894d-402d-ab8a-af55f49a9067.png)
 
