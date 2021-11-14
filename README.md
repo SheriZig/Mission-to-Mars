@@ -16,7 +16,16 @@ The challenge consisted of created two different index.html files to format the 
 The first site contains the following elements: 
 - Title with Scrape the Data button 
 - Featured Image
-- Mars facts table 
+- Mars Facts table 
 - Full resolution images for the four hemisphers
+
+![image](https://user-images.githubusercontent.com/88912539/141663368-fc55f98d-a052-4d8c-8a06-8b82011377c0.png)
+
+### Mission to Mars site # 2
+The second site contains the following elements:
+- Title with Scrape the Data button
+- Featured Image and Mars facts table with modifications to the placement
+- Mars Facts table with modification to the font size
+- Four thumbnail images of the four hemisphers horizontally across the page
 
 
